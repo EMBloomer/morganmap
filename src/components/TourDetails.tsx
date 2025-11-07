@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Tour, Venue } from '../types/tour';
+import { formatDate } from '../utils/helpers';
 
 interface TourDetailsProps {
   tour: Tour | null;
@@ -22,16 +23,6 @@ export const TourDetails: React.FC<TourDetailsProps> = ({ tour, onVenueClick }) 
   const handleVenueClick = (venue: Venue) => {
     setSelectedVenueId(venue.id);
     onVenueClick(venue);
-  };
-
-  // Format date to readable string
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
   };
 
   // Calculate total distance from routes

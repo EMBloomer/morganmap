@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Marker, Popup } from 'react-leaflet';
+import { divIcon, DivIcon } from 'leaflet';
 import { Venue } from '../types/tour';
+import { formatDate } from '../utils/helpers';
 
 interface VenueMarkerProps {
   venue: Venue;
@@ -14,22 +16,6 @@ interface VenueMarkerProps {
  * Markers are color-coded based on the venue's position in the tour.
  */
 const VenueMarker: React.FC<VenueMarkerProps> = ({ venue, index, color }) => {
-  /**
-   * Format a date string to a readable format
-   * Assumes input is ISO 8601 format or similar string
-   */
-  const formatDate = (dateString: string): string => {
-    try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      });
-    } catch {
-      return dateString;
-    }
-  };
 
   /**
    * Build full address from venue components
@@ -51,7 +37,7 @@ const VenueMarker: React.FC<VenueMarkerProps> = ({ venue, index, color }) => {
       return color;
     }
 
-    // Default color progression for markers
+    // Default color progression for markers (matches Legend.tsx)
     const colors = [
       '#FF6B6B', // Red
       '#4ECDC4', // Teal
@@ -70,11 +56,44 @@ const VenueMarker: React.FC<VenueMarkerProps> = ({ venue, index, color }) => {
 
   const markerColor = getMarkerColor();
 
+  /**
+   * Create a custom colored marker icon using divIcon
+   * This ensures markers match the colors shown in the legend
+   */
+  const customIcon: DivIcon = useMemo(() => {
+    return divIcon({
+      html: `
+        <div style="
+          background-color: ${markerColor};
+          width: 32px;
+          height: 32px;
+          border-radius: 50% 50% 50% 0;
+          border: 3px solid white;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+          transform: rotate(-45deg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        ">
+          <span style="
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            transform: rotate(45deg);
+          ">${index + 1}</span>
+        </div>
+      `,
+      className: 'custom-marker-icon',
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32],
+    });
+  }, [markerColor, index]);
+
   return (
     <Marker
       position={[venue.latitude, venue.longitude]}
-      // Note: For now using default Leaflet marker icon
-      // Color-coding can be implemented with custom icons in future enhancements
+      icon={customIcon}
     >
       <Popup maxWidth={300} className="venue-popup">
         <div className="p-2 w-full">
