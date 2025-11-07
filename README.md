@@ -249,10 +249,10 @@ Contributions are welcome! Please:
 - [ ] Route line visualization
 - [ ] Tour details sidebar
 
-### Phase 3: API Integration
-- [ ] Serverless tour extraction function
-- [ ] Geocoding endpoint
-- [ ] Route calculation endpoint
+### Phase 3: API Integration ✓
+- [x] Serverless tour extraction function
+- [x] Geocoding endpoint
+- [x] Route calculation endpoint
 
 ### Phase 4: Polish
 - [ ] Manual editing capability
@@ -316,6 +316,6 @@ Created for theatre tour visualization and planning.
 
 ---
 
-**Project Status**: In active development (Phase 1 complete)
+**Project Status**: In active development (Phase 1 & 3 complete, Phase 2 in progress)
 
 **Last Updated**: 2025-11-07
