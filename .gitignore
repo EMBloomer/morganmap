@@ -29,3 +29,8 @@ dist-ssr
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Backend environment
+backend/.env
+backend/.env.local
+coverage/

@@ -1,0 +1,22 @@
+# Quick Test Reference
+
+## Run Tests
+npm test                    # Run once
+npm test -- --watch         # Watch mode
+npm run test:coverage       # With coverage
+npm run test:ui             # Interactive UI
+
+## Key Files
+- vite.config.ts           # Vitest config
+- src/test/setup.ts        # Test setup & mocks
+- TESTING.md               # Full testing guide
+- TEST_SUMMARY.md          # Test suite summary
+
+## Test Stats
+- Total Tests: 154
+- Passing: 138 (89.6%)
+- Coverage Target: 70%
+
+## Docs
+See TESTING.md for complete guide
+See TEST_SUMMARY.md for detailed breakdown
